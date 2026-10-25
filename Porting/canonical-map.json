@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "package": "swift-ai-heygen",
+  "status": "coarse-import",
+  "upstream": [
+    {
+      "name": "@ai-sdk/heygen",
+      "implementation": [
+        "packages/heygen/src"
+      ],
+      "tests": [
+        "packages/heygen/src/heygen-provider.test.ts",
+        "packages/heygen/src/heygen-video-model.test.ts",
+        "packages/heygen/src/lazy-schemas.test.ts"
+      ]
+    }
+  ],
+  "swift": {
+    "sources": [
+      "Packages/swift-ai-heygen/Sources/SwiftAIHeyGen/HeyGenProvider.swift",
+      "Packages/swift-ai-heygen/Sources/SwiftAIHeyGen/HeyGenVideoInputs.swift",
+      "Packages/swift-ai-heygen/Sources/SwiftAIHeyGen/HeyGenVideoModel.swift",
+      "Packages/swift-ai-heygen/Sources/SwiftAIHeyGen/HeyGenVideoModelOptions.swift"
+    ],
+    "tests": [
+      "Packages/swift-ai-heygen/Tests/SwiftAIHeyGenTests/FixtureDownloadTransport.swift",
+      "Packages/swift-ai-heygen/Tests/SwiftAIHeyGenTests/HeyGenProviderTests.swift",
+      "Packages/swift-ai-heygen/Tests/SwiftAIHeyGenTests/HeyGenTestSupport.swift",
+      "Packages/swift-ai-heygen/Tests/SwiftAIHeyGenTests/HeyGenVideoOperationTests.swift",
+      "Packages/swift-ai-heygen/Tests/SwiftAIHeyGenTests/HeyGenVideoRequestTests.swift",
+      "Packages/swift-ai-heygen/Tests/SwiftAIHeyGenTests/HeyGenVideoValidationTests.swift",
+      "Packages/swift-ai-heygen/Tests/SwiftAIHeyGenTests/TestSupport.swift"
+    ],
+    "resources": []
+  },
+  "differences": [
+    {
+      "kind": "native-adaptation",
+      "reason": "Preserve Swift async/await, Sendable, Foundation transport and existing documented gaps; see Docs/CoreV6Parity.md and PortingStatus.md."
+    }
+  ],
+  "reviewNote": "M6: provider runtime, configuration and focused tests extracted. Existing upstream baseline, capability boundaries and gaps retained."
+}

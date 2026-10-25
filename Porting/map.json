@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "package": "swift-ai-heygen",
+  "status": "coarse-import",
+  "upstream": [
+    {
+      "name": "@ai-sdk/heygen",
+      "implementation": [
+        "packages/heygen/src"
+      ],
+      "tests": [
+        "packages/heygen/src/heygen-provider.test.ts",
+        "packages/heygen/src/heygen-video-model.test.ts",
+        "packages/heygen/src/lazy-schemas.test.ts"
+      ]
+    }
+  ],
+  "swift": {
+    "sources": [
+      "Sources/SwiftAIHeyGen/HeyGenProvider.swift",
+      "Sources/SwiftAIHeyGen/HeyGenVideoInputs.swift",
+      "Sources/SwiftAIHeyGen/HeyGenVideoModel.swift",
+      "Sources/SwiftAIHeyGen/HeyGenVideoModelOptions.swift"
+    ],
+    "tests": [
+      "Tests/SwiftAIHeyGenTests/FixtureDownloadTransport.swift",
+      "Tests/SwiftAIHeyGenTests/HeyGenProviderTests.swift",
+      "Tests/SwiftAIHeyGenTests/HeyGenTestSupport.swift",
+      "Tests/SwiftAIHeyGenTests/HeyGenVideoOperationTests.swift",
+      "Tests/SwiftAIHeyGenTests/HeyGenVideoRequestTests.swift",
+      "Tests/SwiftAIHeyGenTests/HeyGenVideoValidationTests.swift",
+      "Tests/SwiftAIHeyGenTests/TestSupport.swift"
+    ],
+    "resources": []
+  },
+  "differences": [
+    {
+      "kind": "native-adaptation",
+      "reason": "Preserve Swift async/await, Sendable, Foundation transport and existing documented gaps; see Docs/CoreV6Parity.md and PortingStatus.md."
+    }
+  ],
+  "reviewNote": "M6: provider runtime, configuration and focused tests extracted. Existing upstream baseline, capability boundaries and gaps retained.",
+  "canonicalOnlyReferences": [],
+  "canonicalDirectory": "Packages/swift-ai-heygen"
+}

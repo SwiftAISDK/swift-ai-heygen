@@ -1,0 +1,16 @@
+[
+  {
+    "order": 30,
+    "providerID": "heygen",
+    "upstreamPackage": "@ai-sdk/heygen",
+    "factoryNames": [
+      "AIProviders.heyGen"
+    ],
+    "capabilities": [
+      "video"
+    ],
+    "files": false,
+    "skills": false,
+    "notes": "HeyGen mirrors @ai-sdk/heygen 3.0.10: HEYGEN_API_KEY / x-api-key authentication, custom base URL/headers/transport and ai-sdk-heygen/3.0.10 user-agent; video/videoModel aliases and open model IDs; heygen-video-1 text-to-video, first-frame image-to-video and grouped image/video/audio reference conditioning. Typed HeyGenVideoModelOptions and HeyGenVideoAsset validate HTTPS URL/asset/base64 inputs, mode conflicts, 9 image/3 video/3 audio/12 total reference limits, prompt/duration/seed bounds, all documented frame sizes and size-class/aspect-ratio constraints before I/O. AsyncVideoModel start/status operations retain videoId/mode/resolution, support durable JSON persistence and shared polling/idempotent retries, and return refreshed signed MP4 URLs without downloading. Reported output duration/dimensions/seed/inference timing and failure codes are preserved without inventing token or credit usage. Native credentials resolve at factory creation. Unary generation, remote cancellation, webhooks, avatar/voice/translation APIs and JavaScript model/workflow serialization are absent from this provider surface; unsupported fps/audio/count settings warn."
+  }
+]
