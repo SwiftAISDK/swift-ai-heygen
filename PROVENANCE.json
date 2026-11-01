@@ -1,41 +1,43 @@
 {
   "schemaVersion": 1,
   "package": "swift-ai-heygen",
-  "version": "1.0.0",
-  "releaseID": "modular-3",
+  "version": "1.1.0",
+  "releaseID": "weekly-upstream-20261101",
   "source": {
-    "commit": "7fc9b4cd72f8f83b75ba7eee2e38d37127539317",
-    "baseCommit": "7fc9b4cd72f8f83b75ba7eee2e38d37127539317",
+    "commit": "ea057797494ab9bb66df8c6bfd8edc10245b20e7",
+    "baseCommit": "ea057797494ab9bb66df8c6bfd8edc10245b20e7",
     "workingTree": false,
-    "inputsSHA256": "49b802ba4a30454f78c9886ab3114537ef659ab3e6db7775479b7351f6e3f0ab"
+    "inputsSHA256": "b46f3e07b0a583d6fee81035987d74a06fc5c6109cbdf228144d1172d2c3676e"
   },
   "dependencies": [
     {
       "package": "swift-ai-core",
-      "from": "1.1.0"
+      "from": "1.2.0"
     }
   ],
   "changes": [
     {
-      "id": "remaining-package-extraction",
-      "notes": "Extract the existing runtime, typed settings and standalone tests from the compatibility aggregate. Preserve the reviewed npm baseline and existing capability/gap boundaries.",
-      "compatibility": "Initial independent Swift package version. Existing SwiftAISDK entry points remain in the development compatibility facade; no npm-version equivalence is implied."
+      "id": "weekly-upstream-20261101",
+      "notes": "Accept any positive integer video duration without local 5-15 limits or clamping; all modes/resolutions retain provider-side validation. Typed ultraquality prompt enhancement forwards unchanged. Propagate provider duration rejection with original status/message/retryability and one direct start call. Reviewed upstream: @ai-sdk/heygen 3.0.10 to 3.0.14. Validation passed: node Scripts/test-packages.mjs (all 52 owning package suites and the compatibility facade); node Scripts/sdk.mjs generate --check; node --test Scripts/tests/*.test.cjs (27 passed); docs-site check and build (100 pages). Live provider calls were not run.",
+      "compatibility": "Minor release for additive native API; existing static settings and call sites remain compatible. Updated direct dependency minimums are recorded in the manifest. Existing documented JS/framework and native product gaps remain; version-delta review does not imply full parity or live-service testing. Explicit custom authentication skips an unused credential supplier, a deliberate native callback-order adaptation."
     }
   ],
   "canonicalDirectory": "Packages/swift-ai-heygen",
   "upstream": [
     {
       "name": "@ai-sdk/heygen",
-      "reviewedVersion": "3.0.10",
+      "reviewedVersion": "3.0.14",
       "ledgerKind": "provider",
-      "evidence": "`AIProviders.heyGen`, `HeyGenVideoModel`, `HeyGenVideoModelOptions`, `HeyGenVideoAsset`, `HeyGen*Tests.swift`",
+      "evidence": "`AIProviders.heyGen`, `HeyGenVideoModel`, `HeyGenVideoModelOptions`, `HeyGenVideoAsset`, `HeyGen*Tests.swift`; 2026-11-01 delta: Docs/WeeklyUpstreamAudit20261101.json",
       "reviewStatus": "imported-reviewed-with-gaps",
-      "archiveIntegrity": "sha512-87NVs+SNS0Ehap07fHkgh/1KMxw9qpK5xY4/i/oZadqG7CBt/KciJVdLBLRaLG5yqknZMBjYEFeIz/v7AqJVgg==",
-      "sourceRef": "npm:@ai-sdk/heygen@3.0.10",
-      "testRef": "682e2dd71456f14f9da33a1b983d1998c3a1184c",
-      "testRefRelationship": "inventory-snapshot-not-release-verified",
-      "contractFamilies": [],
-      "contractReview": "not-imported; inspect upstream declarations before extraction"
+      "archiveIntegrity": "sha512-wmDkAuH8cbpp9RsMjb0F3pN/8/ZUWI50pJ8+lV4lK7uwXta2jtcEmUwIJj8yVeqcqM+240P1vaEzU8Wt7SEjqA==",
+      "sourceRef": "npm:@ai-sdk/heygen@3.0.14",
+      "testRef": "9b603d36186b75e58d5479445a96c76f6e2d2700",
+      "testRefRelationship": "matching-release",
+      "contractFamilies": [
+        "ProviderV4"
+      ],
+      "contractReview": "2026-11-01: published declarations, source and exact matching-release changed tests reviewed; scoped dispositions and Swift translations are in Docs/WeeklyUpstreamAudit20261101.json. Existing broader product gaps remain; reviewed delta is not full-package parity."
     }
   ],
   "note": "Independent port. Imported test refs and contract review gaps retain their original status; export is not new upstream parity proof.",
@@ -54,7 +56,7 @@
     },
     {
       "canonicalPath": "Packages/swift-ai-heygen/Porting/map.json",
-      "sha256": "a3fd9119dd927c25ef4e37e45b0eb986a48169def083d4577e64dc798f82db6d"
+      "sha256": "0905f0fdad4cbf5c814c4ceddc798092c0610fefb256764e7de04de5f2c80cfe"
     },
     {
       "canonicalPath": "Packages/swift-ai-heygen/README.md",
@@ -62,11 +64,11 @@
     },
     {
       "canonicalPath": "Packages/swift-ai-heygen/Sources/SwiftAIHeyGen/HeyGenProvider.swift",
-      "sha256": "d30f3c7fa8e9faa4f4140cefc15a8e48c0278fed66e347dd15e3694239dac129"
+      "sha256": "88091a1e21de3d64ee1b34e36321388c72f10a2763eaea54251b4cc1f75ed2da"
     },
     {
       "canonicalPath": "Packages/swift-ai-heygen/Sources/SwiftAIHeyGen/HeyGenVideoInputs.swift",
-      "sha256": "68a0b8973797b5b1aa721b9d797b1a9473193f755a5c636fd7c64dbafef896b0"
+      "sha256": "0943f83973c292dc227c0da882dcbaa9f2cd5f2a01425e3be75c2d2531c46dc6"
     },
     {
       "canonicalPath": "Packages/swift-ai-heygen/Sources/SwiftAIHeyGen/HeyGenVideoModel.swift",
@@ -74,7 +76,7 @@
     },
     {
       "canonicalPath": "Packages/swift-ai-heygen/Sources/SwiftAIHeyGen/HeyGenVideoModelOptions.swift",
-      "sha256": "0d8dbce57b42f89226931c92206f449a768200c5e5aba31b97fc6423ff9032c0"
+      "sha256": "68f69c57f6e572dfe1fa88b8702fd49ef0778ca27ea4bd664e27a7142f378726"
     },
     {
       "canonicalPath": "Packages/swift-ai-heygen/Tests/SwiftAIHeyGenTests/FixtureDownloadTransport.swift",
@@ -82,7 +84,7 @@
     },
     {
       "canonicalPath": "Packages/swift-ai-heygen/Tests/SwiftAIHeyGenTests/HeyGenProviderTests.swift",
-      "sha256": "259d72887f422861c12764e552fcea39f2e50e7b0db244a21369a8fbb27a860f"
+      "sha256": "3826664cd17bd5c632e77ac9af65c42cded762a361ffdd0197c5c6d15a421e73"
     },
     {
       "canonicalPath": "Packages/swift-ai-heygen/Tests/SwiftAIHeyGenTests/HeyGenTestSupport.swift",
@@ -98,11 +100,19 @@
     },
     {
       "canonicalPath": "Packages/swift-ai-heygen/Tests/SwiftAIHeyGenTests/HeyGenVideoValidationTests.swift",
-      "sha256": "056cc5bf2da2a875504b980b819fda337269281285b1bef985f879ddf1c4dcc3"
+      "sha256": "e6702b30577eb5408955816800a4e88d4837f8d1f5a0bf2f267d5d70da79be99"
     },
     {
       "canonicalPath": "Packages/swift-ai-heygen/Tests/SwiftAIHeyGenTests/TestSupport.swift",
       "sha256": "a1d1c22e6e4c130ee1734c9531a3618ae11fdd404c2ef03222c4b392984821a8"
+    },
+    {
+      "canonicalPath": "Packages/swift-ai-heygen/Tests/SwiftAIHeyGenTests/Weekly20261101BehaviorTests.swift",
+      "sha256": "a3458d75e7ac8bea6bed2d0842411b34c24dbd42f2f654002799aacd43fc8609"
+    },
+    {
+      "canonicalPath": "Packages/swift-ai-heygen/Tests/SwiftAIHeyGenTests/Weekly20261101CredentialsTests.swift",
+      "sha256": "63cd142f27e1838cfa5815b7750a4a32b48b71e34bf57970a9bc819d899cd91e"
     }
   ]
 }

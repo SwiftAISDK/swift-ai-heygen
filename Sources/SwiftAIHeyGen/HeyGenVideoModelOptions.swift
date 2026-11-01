@@ -34,7 +34,7 @@ public struct HeyGenVideoModelOptions: Sendable, Equatable {
     }
 
     public enum PromptEnhancement: String, Sendable, Codable {
-        case turbo, quality, disabled
+        case turbo, quality, ultraquality, disabled
     }
 
     public var mode: Mode?
@@ -95,7 +95,7 @@ func heyGenVideoOptions(_ request: VideoGenerationRequest) throws -> [String: JS
     let allowed: [String: Set<String>] = [
         "mode": ["text_to_video", "image_to_video", "reference_to_video"],
         "resolution": ["480p", "768p", "1080p", "2k"],
-        "promptEnhancement": ["turbo", "quality", "disabled"]
+        "promptEnhancement": ["turbo", "quality", "ultraquality", "disabled"]
     ]
     for (key, choices) in allowed {
         guard let value = options[key] else { continue }

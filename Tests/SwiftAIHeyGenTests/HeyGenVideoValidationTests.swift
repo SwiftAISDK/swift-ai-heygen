@@ -7,7 +7,7 @@ import Foundation
 import Testing
 
 enum HeyGenInvalidInput: String, CaseIterable, Sendable {
-    case emptyPrompt, longPrompt, unicodePrompt, shortDuration, longDuration, fractionalDuration, nonfiniteDuration
+    case emptyPrompt, longPrompt, unicodePrompt, zeroDuration, negativeDuration, fractionalDuration, nonfiniteDuration
     case negativeSeed, largeSeed, unknownResolution, textAdaptiveRatio, unsupportedRatio, highResolutionSquare, highResolutionAdaptiveReferences
     case audioOnly, untypedReference, insecureURL, videoAsImage, lastFrame, multipleFirstFrames, twoFirstFrameSources, frameAndReferences
     case imageAndReferences, twoImageSources, imageModeWithoutImage, referenceModeWithoutReferences, textModeWithImage, textModeWithReferences
@@ -19,8 +19,8 @@ enum HeyGenInvalidInput: String, CaseIterable, Sendable {
         case .emptyPrompt: r.prompt = ""
         case .longPrompt: r.prompt = String(repeating: "x", count: 32_001)
         case .unicodePrompt: r.prompt = String(repeating: "😀", count: 16_001)
-        case .shortDuration: r.durationSeconds = 4
-        case .longDuration: r.durationSeconds = 16
+        case .zeroDuration: r.durationSeconds = 0
+        case .negativeDuration: r.durationSeconds = -1
         case .fractionalDuration: r.durationSeconds = 5.5
         case .nonfiniteDuration: r.durationSeconds = .infinity
         case .negativeSeed: r.seed = -1

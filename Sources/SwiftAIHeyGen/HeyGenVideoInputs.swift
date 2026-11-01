@@ -15,8 +15,8 @@ func heyGenVideoPreparedCall(_ request: VideoGenerationRequest, modelID: String)
     guard !request.prompt.isEmpty, request.prompt.utf16.count <= 32_000 else {
         throw heyGenInvalidArgument("prompt", "HeyGen requires a prompt between 1 and 32,000 characters.")
     }
-    if let duration = request.durationSeconds, !duration.isFinite || duration.rounded() != duration || duration < 5 || duration > 15 {
-        throw heyGenInvalidArgument("duration", "HeyGen duration must be an integer between 5 and 15 seconds.")
+    if let duration = request.durationSeconds, !duration.isFinite || duration.rounded() != duration || duration <= 0 {
+        throw heyGenInvalidArgument("duration", "HeyGen duration must be a positive integer number of seconds.")
     }
     if let seed = request.seed, seed < 0 || seed > Int(UInt32.max) {
         throw heyGenInvalidArgument("seed", "HeyGen seed must be an unsigned 32-bit integer.")
