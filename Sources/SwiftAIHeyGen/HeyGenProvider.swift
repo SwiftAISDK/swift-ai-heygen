@@ -39,7 +39,7 @@ public final class HeyGenProvider: AIProvider, Sendable {
         }
         var headers = normalizeHeaders(configuration.headers)
         headers["x-api-key"] = headers["x-api-key"] ?? "\(key)"
-        headers = withUserAgentSuffix(headers, "ai-sdk-heygen/3.0.19")
+        headers = withUserAgentSuffix(headers, "ai-sdk-heygen/3.0.24")
         let baseURL = withoutTrailingSlash(configuration.baseURL ?? "https://api.heygen.com")
         let http = AIProviderHTTPClient(providerID: "heygen", headers: headers, transport: configuration.transport,
             url: { _, path in try providerURL("\(baseURL)\(path)", queryParams: configuration.queryParams) })
