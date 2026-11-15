@@ -20,28 +20,30 @@ public struct HeyGenProviderSettings: Sendable {
     }
 }
 
-public final class HeyGenProvider: AIProvider, Sendable {
+public let heyGenProviderVersion = "3.0.25"
+
+public final class HeyGenProvider: AIProvider, AIDecisionProvider, Sendable {
     public let providerID = "heygen"
-    public let supportedCapabilities: Set<ModelCapability> = [.video]
+    public let specificationVersion = "v4"
+    public let supportedCapabilities: Set<ModelCapability> = [.video, .decision]
     private let config: HeyGenModelConfiguration
 
     public init(configuration: HeyGenProviderSettings = .init()) throws {
-        var resolvedSettings = configuration
-        if let supplier = resolvedSettings.apiKeyProvider {
-            let credential = AIAsyncCredential(supplier)
-            resolvedSettings.apiKey = credential.placeholder
-            resolvedSettings.transport = credential.resolvingTransport(resolvedSettings.transport)
-        }
-        let configuration = resolvedSettings
-        let names = ["HEYGEN_API_KEY"]
-        guard let key = configuration.apiKey ?? (configuration.environment ?? ProcessInfo.processInfo.environment)["HEYGEN_API_KEY"] else {
-            throw AIError.missingAPIKey(provider: "heygen", environmentVariables: names)
+        // Retain the released throwing initializer selector while resolving auth
+        // at request time for both video and Decision, as in upstream 3.0.25.
+        let credential = AIAsyncCredential {
+            if let supplier = configuration.apiKeyProvider { return try await supplier() }
+            if let key = configuration.apiKey ?? (configuration.environment ?? ProcessInfo.processInfo.environment)["HEYGEN_API_KEY"] {
+                return key
+            }
+            throw AIError.missingAPIKey(provider: "heygen", environmentVariables: ["HEYGEN_API_KEY"])
         }
         var headers = normalizeHeaders(configuration.headers)
-        headers["x-api-key"] = headers["x-api-key"] ?? "\(key)"
-        headers = withUserAgentSuffix(headers, "ai-sdk-heygen/3.0.24")
+        headers["x-api-key"] = headers["x-api-key"] ?? credential.placeholder
+        headers = withUserAgentSuffix(headers, "ai-sdk-heygen/\(heyGenProviderVersion)")
         let baseURL = withoutTrailingSlash(configuration.baseURL ?? "https://api.heygen.com")
-        let http = AIProviderHTTPClient(providerID: "heygen", headers: headers, transport: configuration.transport,
+        let http = AIProviderHTTPClient(providerID: "heygen", headers: headers,
+            transport: credential.resolvingTransport(configuration.transport),
             url: { _, path in try providerURL("\(baseURL)\(path)", queryParams: configuration.queryParams) })
         config = HeyGenModelConfiguration(http: http, baseURL: baseURL)
     }
@@ -70,12 +72,25 @@ public final class HeyGenProvider: AIProvider, Sendable {
         HeyGenVideoModel(modelID: modelID, config: config)
     }
 
+    public func decisionModel(_ modelID: String) throws -> any AIDecisionModelV4 {
+        DecisionHeyGenModel(modelID: modelID, config: config)
+    }
+
+    public func decision(_ modelID: String) throws -> any AIDecisionModelV4 { try decisionModel(modelID) }
+
     public func rerankingModel(_ modelID: String) throws -> any RerankingModel {
         throw AIError.unsupportedModel(provider: providerID, capability: .reranking, modelID: modelID)
     }
 
     public func chatModel(_ modelID: String) throws -> any LanguageModel { try languageModel(modelID) }
 }
+
+public func createHeyGen(configuration: HeyGenProviderSettings = .init()) throws -> HeyGenProvider {
+    try HeyGenProvider(configuration: configuration)
+}
+
+/// Default HeyGen provider; no credential is needed until a request is sent.
+public let heygen: HeyGenProvider = try! createHeyGen()
 
 public extension AIProviders {
     static func heyGen(configuration: HeyGenProviderSettings) throws -> HeyGenProvider {

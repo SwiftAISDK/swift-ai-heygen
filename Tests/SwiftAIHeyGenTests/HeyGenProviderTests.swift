@@ -6,12 +6,13 @@
 import Foundation
 import Testing
 
-/// @ai-sdk/heygen 3.0.0 heygen-provider.test.ts, with native credential timing.
+/// @ai-sdk/heygen provider scenarios, refreshed to 3.0.25 lazy credential timing.
 @Suite struct HeyGenProviderTests {
     @Test func factoriesAliasesAndUnsupportedCapabilities() async throws {
         let p = try heyGenTestProvider(RecordingTransport(response: jsonResponse(heyGenCreated)))
         #expect(p.providerID == "heygen")
-        #expect(p.supportedCapabilities == [.video])
+        #expect(p.specificationVersion == "v4")
+        #expect(p.supportedCapabilities == [.video, .decision])
         for video in [try p.video("heygen-video-1"), try p.videoModel("heygen-video-1")] {
             let model = try #require(video as? HeyGenVideoModel)
             #expect(model.providerID == "heygen.video")
@@ -40,13 +41,16 @@ import Testing
         #expect(call.headers["x-api-key"] == (explicit ? "explicit-key" : "env-key"))
         #expect(call.headers["x-custom"] == "custom")
         #expect(call.headers["x-request"] == "request")
-        #expect(call.headers["user-agent"] == "App/1.0 ai-sdk-heygen/3.0.24")
+        #expect(call.headers["user-agent"] == "App/1.0 ai-sdk-heygen/3.0.25")
     }
 
-    @Test func nativeFactoryReportsMissingCredentials() {
-        #expect(throws: AIError.missingAPIKey(provider: "heygen", environmentVariables: ["HEYGEN_API_KEY"])) {
-            try AIProviders.heyGen(configuration: HeyGenProviderSettings(environment: [:]))
+    @Test func nativeFactoryReportsMissingCredentialsLazily() async throws {
+        let transport = RecordingTransport(response: jsonResponse(heyGenCreated))
+        let provider = try AIProviders.heyGen(configuration: HeyGenProviderSettings(environment: [:], transport: transport))
+        await #expect(throws: AIError.missingAPIKey(provider: "heygen", environmentVariables: ["HEYGEN_API_KEY"])) {
+            try await AI.getVideoStatus(model: provider.videoModel("heygen-video-1"), operation: heyGenOperation, retryPolicy: .none)
         }
+        #expect(await transport.requests().isEmpty)
     }
 
     @Test func headerOverridesAreCaseInsensitive() async throws {

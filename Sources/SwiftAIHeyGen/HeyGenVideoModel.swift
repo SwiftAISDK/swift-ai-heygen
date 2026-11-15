@@ -105,7 +105,7 @@ private func heyGenVideoPathComponent(_ value: String) -> String {
     return value.addingPercentEncoding(withAllowedCharacters: allowed) ?? value
 }
 
-private func heyGenResponseJSON(_ response: AIHTTPResponse, providerID: String, requestBody: JSONValue? = nil) throws -> JSONValue {
+func heyGenResponseJSON(_ response: AIHTTPResponse, providerID: String, requestBody: JSONValue? = nil) throws -> JSONValue {
     guard (200..<300).contains(response.statusCode) else {
         var error = heyGenAPICallError(response, providerID: providerID, requestBody: requestBody)
         if let raw = try? response.jsonValue(), let value = raw["error"],
@@ -151,7 +151,7 @@ private func heyGenAPICallError(_ response: AIHTTPResponse, providerID: String, 
         responseBody: String(data: response.body, encoding: .utf8) ?? "")
 }
 
-private func heyGenMalformedResponse(_ response: AIHTTPResponse, providerID: String, field: String, requestBody: JSONValue? = nil) -> AIError {
+func heyGenMalformedResponse(_ response: AIHTTPResponse, providerID: String, field: String, requestBody: JSONValue? = nil) -> AIError {
     var error = heyGenAPICallError(response, providerID: providerID, requestBody: requestBody)
     error.isRetryable = false
     error.message = "Invalid HeyGen response field \(field)."
