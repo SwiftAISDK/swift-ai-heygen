@@ -22,7 +22,7 @@ struct HeyGenDecisionRequestUpstreamTests {
         #expect(request.headers["content-type"] == "application/json")
         #expect(request.headers["x-provider"] == "custom")
         #expect(request.headers["shared"] == "call")
-        #expect(request.headers["user-agent"]?.contains("ai-sdk-heygen/3.0.25") == true)
+        #expect(request.headers["user-agent"]?.contains("ai-sdk-heygen/3.0.27") == true)
         #expect(try await heyGenTestRequestBody(transport) == [
             "model": "heygen-decision-1", "state": "Video export fails for everyone.",
             "questions": [

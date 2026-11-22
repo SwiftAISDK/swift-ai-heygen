@@ -20,7 +20,7 @@ public struct HeyGenProviderSettings: Sendable {
     }
 }
 
-public let heyGenProviderVersion = "3.0.25"
+public let heyGenProviderVersion = "3.0.27"
 
 public final class HeyGenProvider: AIProvider, AIDecisionProvider, Sendable {
     public let providerID = "heygen"

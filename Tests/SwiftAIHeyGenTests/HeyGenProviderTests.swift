@@ -41,7 +41,7 @@ import Testing
         #expect(call.headers["x-api-key"] == (explicit ? "explicit-key" : "env-key"))
         #expect(call.headers["x-custom"] == "custom")
         #expect(call.headers["x-request"] == "request")
-        #expect(call.headers["user-agent"] == "App/1.0 ai-sdk-heygen/3.0.25")
+        #expect(call.headers["user-agent"] == "App/1.0 ai-sdk-heygen/3.0.27")
     }
 
     @Test func nativeFactoryReportsMissingCredentialsLazily() async throws {

@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.2.0
+## 1.2.1
 
-- Add HeyGen multimodal Decision V4 with boolean/choice/score questions, ordered image/video assets, limits, confidence/JSON score legends/answer warnings and usage. Credential loading now occurs at request time for Decision and video; preserve the existing throwing initializer and video selectors. Published 3.0.25 test scenarios are translated; JS workflow and impossible invalid file-union shapes excluded explicitly. No paid/live-service claim. Reviewed npm delta: @ai-sdk/heygen 3.0.24 to 3.0.25. Validation passed: node Scripts/test-packages.mjs (55 owning packages, 2451 owning tests and 1736 compatibility tests), generation checks, 27 tooling tests, isolation/version checks, deterministic exports and minimum-dependency consumers. Documentation check/build passed (104 pages). Publication is gated by exact-source Swift 6.3.3 CI; subsequent public refs and clients are recorded in Docs/ReleaseVerification20261115.json. Paid/live-service checks were not run; this delta does not claim full-package parity.
-  Compatibility: Additive Decision APIs/capability. Missing credentials are reported on a request rather than factory initialization, aligning published upstream timing; existing throwing initializer signatures retained. Native core minimum is 1.4.0. The compatibility settings factory retains its previous credential timing and request identity.
+- Align the provider request identity with @ai-sdk/heygen 3.0.27 after comparing source, declarations and matching-release tests against 3.0.25. Offline validation passed: node Scripts/test-packages.mjs (56 packages, 3672 owning tests and 1760 compatibility tests), generation, tooling, isolation, and version selection. See Docs/Archive/WeeklyUpstreamAudit20261122.md for retained gaps. Paid provider calls were skipped.
+  Compatibility: Source-compatible request-header update.

@@ -1,6 +1,8 @@
 [
   {
+    "order": 30,
     "providerID": "heygen",
+    "displayName": "HeyGen",
     "upstreamPackage": "@ai-sdk/heygen",
     "factoryNames": [
       "AIProviders.heyGen",
@@ -13,7 +15,12 @@
     ],
     "files": false,
     "skills": false,
-    "notes": "HeyGen 3.0.25 native asynchronous video plus multimodal Decision V4: boolean/choice/score, 400 questions, 4images/1video, URL/base64/native assets, lazy auth, exact response validation/confidence/JSON legends/answer warnings/usage. Existing video operation selectors preserved; JS serialization and unrepresentable invalid file-union shapes excluded.",
-    "order": 30
+    "credentials": [
+      {
+        "env": "HEYGEN_API_KEY",
+        "description": "API key, sent in the `x-api-key` header. Required unless passed in settings."
+      }
+    ],
+    "notes": "HeyGen asynchronous video generation from text, a first-frame image or image, video and audio references, with resumable jobs, plus multimodal decisions. Videos are returned as signed MP4 URLs."
   }
 ]
